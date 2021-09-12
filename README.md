@@ -1,2 +1,32 @@
-# config-storage-laravel
-change or get config by key like the Laravel system
+# Config Storage Laravel
+Config storage by key (encryption) for the Laravel <br>
+Encryption docs https://laravel.com/docs/8.x/encryption
+
+## Requirement
+- Laravel 6+
+## Installation
+- via composer
+```sh
+composer require mlk9/config-storage-laravel
+```
+- vendor publish
+```sh
+php artisan vendor:publish --tag=dbconfig
+```
+- migrate table
+```sh
+php artisan migrate
+```
+## Usage
+set data
+```sh
+DBConfig::set('KEY_NAME','VALUE'); 
+```
+get data
+```sh
+DBConfig::get('KEY_NAME','DEFAULT_VALUE'); 
+```
+key exist
+```sh
+DBConfig::get('KEY_NAME'); //output : bool
+```
