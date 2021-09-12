@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mlk9\\DBConfig\\DBconfigServiceProvider"
+                "Mlk9\\DBConfig\\DBConfigServiceProvider"
             ],
             "aliases": {
                 "DBConfig": "Mlk9\\DBConfig\\Facades\\DBConfig"
