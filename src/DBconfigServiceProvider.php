@@ -1,6 +1,6 @@
 <?php
 
-namespace Mlk9\DBconfig;
+namespace Mlk9\DBConfig;
 
 use Illuminate\Support\ServiceProvider;
 use Mlk9\DBConfig\DBConfig;
