@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Mlk9\\DBconfig\\": "src/"
+            "Mlk9\\DBConfig\\": "src/"
         }
     },
     "require": {
