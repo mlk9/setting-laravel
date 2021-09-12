@@ -3,9 +3,9 @@
 namespace Mlk9\DBconfig;
 
 use Illuminate\Support\ServiceProvider;
-use Mlk9\DBconfig\DBConfig;
+use Mlk9\DBConfig\DBConfig;
 
-class DBconfigServiceProvider extends ServiceProvider
+class DBConfigServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
