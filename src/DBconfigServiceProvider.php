@@ -23,7 +23,23 @@ class DBconfigServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        $this->configurePublishing();
+    }
+
+    /**
+     * Configure publishing for the package.
+     *
+     * @return void
+     */
+    protected function configurePublishing()
+    {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/2021_09_12_000000_create_configs_table.php' => database_path('migrations/2021_09_12_000000_create_configs_table.php'),
+        ], 'dbconfig');
     }
 
 }
