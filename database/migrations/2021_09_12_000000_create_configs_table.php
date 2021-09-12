@@ -17,8 +17,6 @@ class CreateConfigsTable extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('value')->nullable();
-            $table->unsignedBigInteger('group');
-            $table->foreign('group')->references('id')->on('configs')->onDelete('cascade');
             $table->timestamps();
         });
     }
