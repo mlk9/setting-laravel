@@ -2,6 +2,7 @@
 
 namespace Mlk9\DBconfig\Models;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -12,7 +13,7 @@ class DBConfig
     {
         $this->table = 'configs';
     }
-    
+
     /**
      * set configure
      *
@@ -22,17 +23,11 @@ class DBConfig
      */
     public function set($key,$value)
     {
-        $keyEncrypt =  Crypt::encryptString($key);
         $valueEncrypt =  Crypt::encryptString($value);
-        $count = count(DB::select('select * from '.$this->table.' where key = :key', ['key' => $keyEncrypt]));
-        if($count==0)
-        {
-            DB::insert('insert into '.$this->table.' (id, key, value) values (NULL, :key, :value)', ['key'=>$keyEncrypt,'value'=>$valueEncrypt]);
+        if (is_null(DB::table($this->table)->where('key',$key)->get())) {
+            DB::table($this->table)->insert(['key'=>$key,'value'=>$valueEncrypt]);
         }else{
-            DB::update(
-                'update '.$this->table.' set value = :value where key = :key',
-                ['key'=>$keyEncrypt,'value'=>$valueEncrypt]
-            );
+            DB::table($this->table)->where('key',$key)->update(['value'=>$valueEncrypt]);
         }
     }
 
@@ -45,8 +40,9 @@ class DBConfig
      */
     public function get($key,$default=null)
     {
-        $keyEncrypt =  Crypt::encryptString($key);
-        $valueEncrypt = DB::select('select * from '.$this->table.' where key = :key', ['key' => $keyEncrypt])->first();
+        $valueEncrypt =  DB::table($this->table)->where('key',$key)->get()->first();
+        if(is_null($valueEncrypt))
+            return $default;
         try
         {
             $valueDecrypted = Crypt::decryptString($valueEncrypt->value);
@@ -56,6 +52,7 @@ class DBConfig
         }
     }
 
+
     /**
      * key exist
      *
@@ -64,9 +61,7 @@ class DBConfig
      */
     public function exists($key)
     {
-        $keyEncrypt =  Crypt::encryptString($key);
-        $count = count(DB::select('select * from '.$this->table.' where key = :key', ['key' => $keyEncrypt]));
-        if ($count>0) {
+        if (!is_null(DB::table($this->table)->where('key',$key)->get())) {
             return true;
         }
 
