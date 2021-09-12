@@ -24,7 +24,7 @@ class DBConfig
     public function set($key,$value)
     {
         $valueEncrypt =  Crypt::encryptString($value);
-        if (is_null(DB::table($this->table)->where('key',$key)->get())) {
+        if (is_null(DB::table($this->table)->where('key',$key)->get()->first())) {
             DB::table($this->table)->insert(['key'=>$key,'value'=>$valueEncrypt]);
         }else{
             DB::table($this->table)->where('key',$key)->update(['value'=>$valueEncrypt]);
@@ -61,7 +61,7 @@ class DBConfig
      */
     public function exists($key)
     {
-        if (!is_null(DB::table($this->table)->where('key',$key)->get())) {
+        if (!is_null(DB::table($this->table)->where('key',$key)->get()->first())) {
             return true;
         }
 
