@@ -3,7 +3,7 @@
 namespace Mlk9\DBconfig;
 
 use Illuminate\Support\ServiceProvider;
-use Mlk9\DBconfig\Models\DBConfig;
+use Mlk9\DBconfig\DBConfig;
 
 class DBconfigServiceProvider extends ServiceProvider
 {

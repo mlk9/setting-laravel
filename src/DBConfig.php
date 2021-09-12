@@ -1,6 +1,6 @@
 <?php
 
-namespace Mlk9\DBconfig\Models;
+namespace Mlk9\DBConfig\Models;
 
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;

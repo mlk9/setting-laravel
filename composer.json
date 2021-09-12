@@ -1,6 +1,6 @@
 {
     "name": "mlk9/config-storage-laravel",
-    "description": "set or get config by key like the Laravel system",
+    "description": "config storage by key (encryption) for the Laravel",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -22,8 +22,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mlk9\\DBconfig\\DBconfigServiceProvider"
-            ]
+                "Mlk9\\DBConfig\\DBconfigServiceProvider"
+            ],
+            "aliases": {
+                "DBConfig": "Mlk9\\DBConfig\\Facades\\DBConfig"
+            }
         }
     }
 }
