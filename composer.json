@@ -1,0 +1,29 @@
+{
+    "name": "mlk9/config-storage-laravel",
+    "description": "set or get config by key like the Laravel system",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammad Maleki",
+            "email": "malekii24@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mlk9\\DBconfig\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1.3",
+        "illuminate/support": "~6|~7|~8",
+        "ext-gd": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mlk9\\DBconfig\\DBconfigServiceProvider"
+            ]
+        }
+    }
+}
