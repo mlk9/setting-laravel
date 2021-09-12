@@ -3,6 +3,7 @@
 namespace Mlk9\DBconfig;
 
 use Illuminate\Support\ServiceProvider;
+use Mlk9\DBconfig\Models\DBConfig;
 
 class DBconfigServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,19 @@ class DBconfigServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+        $this->app->singleton('dbconfig', function ($app) {
+            return new DBConfig();
+        });
+    }
+
+     /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [DBConfig::class];
     }
 
     /**
