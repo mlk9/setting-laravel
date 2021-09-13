@@ -30,3 +30,11 @@ key exist
 ```sh
 DBConfig::get('KEY_NAME'); //output : bool
 ```
+### config using
+`app\Providers\AppServiceProvider.php`
+```sh
+public function boot()
+   {
+    Config::set('services.example.exam1',DBConfig::get('example.exam'));
+   }
+```
