@@ -21,6 +21,11 @@ php artisan migrate
 set data
 ```sh
 DBConfig::set('KEY_NAME','VALUE'); 
+//or
+DBConfig::set([
+'KEY_NAME' => 'VALUE',
+'KEY_NAME' => 'VALUE'
+]); 
 ```
 get data
 ```sh
