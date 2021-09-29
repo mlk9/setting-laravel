@@ -1,10 +1,29 @@
 <?php
 
+/**
+ * DBConfig Service Provider File
+ * 
+ * @category Configure
+ * @package  Laravel
+ * @author   Mohammad Maleki <malekii24@outlook.com>
+ * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/config-storage-laravel
+ */
+
 namespace Mlk9\DBConfig;
 
 use Illuminate\Support\ServiceProvider;
 use Mlk9\DBConfig\DBConfig;
 
+/**
+ * DBConfig Service Provider Class 
+ * 
+ * @category Configure
+ * @package  Laravel
+ * @author   Mohammad Maleki <malekii24@outlook.com>
+ * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/config-storage-laravel
+ */
 class DBConfigServiceProvider extends ServiceProvider
 {
     /**
@@ -19,7 +38,7 @@ class DBConfigServiceProvider extends ServiceProvider
         });
     }
 
-     /**
+    /**
      * Get the services provided by the provider.
      *
      * @return array
@@ -46,13 +65,12 @@ class DBConfigServiceProvider extends ServiceProvider
      */
     protected function configurePublishing()
     {
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             return;
         }
 
         $this->publishes([
-            __DIR__.'/../database/migrations/2021_09_12_000000_create_configs_table.php' => database_path('migrations/2021_09_12_000000_create_configs_table.php'),
+            __DIR__ . '/../database/migrations/2021_09_12_000000_create_configs_table.php' => database_path('migrations/2021_09_12_000000_create_configs_table.php'),
         ], 'dbconfig');
     }
-
 }
