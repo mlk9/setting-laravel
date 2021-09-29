@@ -28,7 +28,7 @@ DBConfig::get('KEY_NAME','DEFAULT_VALUE');
 ```
 key exist
 ```sh
-DBConfig::exist('KEY_NAME'); //output : bool
+DBConfig::exists('KEY_NAME'); //output : bool
 ```
 ### config using
 `app\Providers\AppServiceProvider.php`
