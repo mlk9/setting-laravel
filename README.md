@@ -43,3 +43,5 @@ public function boot()
     Config::set('services.example.exam1',DBConfig::get('example.exam'));
    }
 ```
+## Todo
+- load automaticly configs
