@@ -31,7 +31,7 @@ class DBConfigServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() : void
     {
         $this->app->singleton('dbconfig', function ($app) {
             return new DBConfig();
@@ -43,7 +43,7 @@ class DBConfigServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides() : array
     {
         return [DBConfig::class];
     }
@@ -53,7 +53,7 @@ class DBConfigServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot() : void
     {
         $this->configurePublishing();
     }
@@ -63,7 +63,7 @@ class DBConfigServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePublishing()
+    protected function configurePublishing() : void
     {
         if (!$this->app->runningInConsole()) {
             return;
