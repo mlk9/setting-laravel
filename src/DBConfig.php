@@ -120,7 +120,7 @@ class DBConfig
     /**
      * Key exist
      *
-     * @param string $key Check Key exist
+     * @param string $key Check exist
      * 
      * @return bool
      */
