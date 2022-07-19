@@ -3,11 +3,11 @@
 /**
  * DBConfig Migration File 
  * 
- * @category Configure
+ * @category Setting
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
- * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
- * @link     https://github.com/mlk9/config-storage-laravel
+ * @license  MIT https://github.com/mlk9/setting-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/setting-laravel
  */
 
 use Illuminate\Database\Migrations\Migration;
@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Schema;
 /**
  * DBConfig Migration 
  * 
- * @category Configure
+ * @category Setting
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
- * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
- * @link     https://github.com/mlk9/config-storage-laravel
+ * @license  MIT https://github.com/mlk9/setting-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/setting-laravel
  */
-class CreateConfigsTable extends Migration
+class CreateSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,7 +32,7 @@ class CreateConfigsTable extends Migration
      */
     public function up()
     {
-        Schema::create('configs', function (Blueprint $table) {
+        Schema::create('setting', function (Blueprint $table) {
             $table->id();
             $table->longText('key')->unique();
             $table->longText('value')->nullable();
@@ -46,6 +46,6 @@ class CreateConfigsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configs');
+        Schema::dropIfExists('setting');
     }
 }

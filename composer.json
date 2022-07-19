@@ -1,6 +1,6 @@
 {
-    "name": "mlk9/config-storage-laravel",
-    "description": "config storage by key (encryption) for the Laravel",
+    "name": "mlk9/setting-laravel",
+    "description": "Setting (encryption) for Laravel",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Mlk9\\DBConfig\\": "src/"
+            "Mlk9\\Setting\\": "src/"
         }
     },
     "require": {
@@ -21,10 +21,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mlk9\\DBConfig\\DBConfigServiceProvider"
+                "Mlk9\\Setting\\SettingServiceProvider"
             ],
             "aliases": {
-                "DBConfig": "Mlk9\\DBConfig\\Facades\\DBConfig"
+                "Setting": "Mlk9\\Setting\\Facades\\Setting"
             }
         }
     }

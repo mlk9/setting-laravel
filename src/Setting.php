@@ -1,31 +1,31 @@
 <?php
 
 /**
- * DBConfig File
+ * Setting File
  *
- * @category Configure
+ * @category Setting
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
- * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
- * @link     https://github.com/mlk9/config-storage-laravel
+ * @license  MIT https://github.com/mlk9/setting-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/setting-laravel
  */
 
-namespace Mlk9\DBConfig;
+namespace Mlk9\Setting;
 
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
 /**
- * DBConfig Class
+ * Setting Class
  *
- * @category Configure
+ * @category Setting
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
- * @license  MIT https://github.com/mlk9/config-storage-laravel/blob/main/LICENSE
- * @link     https://github.com/mlk9/config-storage-laravel
+ * @license  MIT https://github.com/mlk9/setting-laravel/blob/main/LICENSE
+ * @link     https://github.com/mlk9/setting-laravel
  */
-class DBConfig
+class Setting
 {
     protected $table;
 
@@ -34,11 +34,11 @@ class DBConfig
      */
     public function __construct()
     {
-        $this->table = 'configs';
+        $this->table = 'setting';
     }
 
     /**
-     * Set configure
+     * Set Setting
      *
      * @param string $key   Key name
      * @param mixed  $value Value of key
@@ -56,15 +56,15 @@ class DBConfig
     }
 
     /**
-     * Set configure
+     * Set Setting
      *
-     * @param array $configs Group set config
+     * @param array $Setting Group set config
      *
      * @return void
      */
-    private function _setArray($configs): void
+    private function _setArray($Setting): void
     {
-        foreach ($configs as $key => $value) {
+        foreach ($Setting as $key => $value) {
             $valueEncrypt =  Crypt::encryptString($value);
             if (is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
                 DB::table($this->table)->insert(['key' => $key, 'value' => $valueEncrypt]);
@@ -96,7 +96,7 @@ class DBConfig
 
 
     /**
-     * Get configure
+     * Get Setting
      *
      * @param string $key     Key name
      * @param mixed  $default Default value not exist
@@ -157,12 +157,12 @@ class DBConfig
      */
     public function all(): array
     {
-        $allConfigs = DB::table($this->table)->get(['key', 'value']);
-        $decryptConfigs = [];
-        foreach ($allConfigs as $data) {
-            $decryptConfigs[$data->key] = $this->get($data->key);
+        $allSetting = DB::table($this->table)->get(['key', 'value']);
+        $decryptSetting = [];
+        foreach ($allSetting as $data) {
+            $decryptSetting[$data->key] = $this->get($data->key);
         }
-        return $decryptConfigs;
+        return $decryptSetting;
     }
 
     /**
