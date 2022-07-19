@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method   void set(string $key, mixed $value) Sets Mlk9\DBConfig 
  * @method   void set($array = ['KEY' => 'VALUE']) Group Set Mlk9\DBConfig 
- * @method   void get(string $key, mixed $default) Gets Mlk9\DBConfig 
- * @method   void exists(string $key) Exists Mlk9\DBConfig 
+ * @method   string get(string $key, mixed $default) Gets Mlk9\DBConfig 
+ * @method   array all() Get All Mlk9\DBConfig 
+ * @method   bool exists(string $key) Exists Mlk9\DBConfig 
+ * @method   bool destroy(string $key) Destroy A Key Mlk9\DBConfig 
+ * @method   bool destroyAll() Destroy All Keys Mlk9\DBConfig 
  * @category Configure
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
@@ -33,9 +36,9 @@ class DBConfig extends Facade
     /**
      * Define facade function
      *
-     * @return void
+     * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor() : string
     {
         return 'dbconfig';
     }
