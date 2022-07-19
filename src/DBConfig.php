@@ -132,4 +132,22 @@ class DBConfig
 
         return false;
     }
+
+    /**
+     * Key destroy
+     *
+     * @param string $key destroy!
+     * 
+     * @return bool
+     */
+    public function destroy($key)
+    {
+        if($this->exists($key))
+        {
+            DB::table($this->table)->where('key', $key)->delete();
+            return true;
+        }
+
+        return false;
+    }
 }
