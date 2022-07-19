@@ -150,4 +150,14 @@ class DBConfig
 
         return false;
     }
+
+    /**
+     * Get all Setting
+     * 
+     * @return array
+     */
+    public function all()
+    {
+        return DB::table($this->table)->all();
+    }
 }
