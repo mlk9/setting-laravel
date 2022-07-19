@@ -160,4 +160,14 @@ class DBConfig
     {
         return DB::table($this->table)->all();
     }
+
+     /**
+     * Destroy all Setting
+     * 
+     * @return array
+     */
+    public function destroyAll()
+    {
+        return DB::table($this->table)->delete();
+    }
 }
