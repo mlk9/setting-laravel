@@ -35,6 +35,18 @@ key exist
 ```sh
 Setting::exists('KEY_NAME'); //output : bool
 ```
+destroy data
+```sh
+Setting::destroy('KEY_NAME'); 
+```
+destroy all data
+```sh
+Setting::destroyAll(); 
+```
+get  all data
+```sh
+Setting::all(); 
+```
 ### config using
 `app\Providers\AppServiceProvider.php`
 ```sh
