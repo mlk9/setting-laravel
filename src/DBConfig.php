@@ -45,7 +45,7 @@ class DBConfig
      *
      * @return void
      */
-    private function _setNone($key, $value)
+    private function _setNone($key, $value): void
     {
         $valueEncrypt =  Crypt::encryptString($value);
         if (is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
@@ -62,7 +62,7 @@ class DBConfig
      *
      * @return void
      */
-    private function _setArray($configs)
+    private function _setArray($configs): void
     {
         foreach ($configs as $key => $value) {
             $valueEncrypt =  Crypt::encryptString($value);
@@ -80,9 +80,9 @@ class DBConfig
      * @param string $method    Method Name
      * @param mixed  $arguments Arguments of the method
      *
-     * @return void
+     * @return mixed
      */
-    public function __Call($method, $arguments)
+    public function __Call($method, $arguments): mixed
     {
         if ($method == 'set') {
             if (count($arguments) == 2) {
@@ -101,9 +101,9 @@ class DBConfig
      * @param string $key     Key name
      * @param mixed  $default Default value not exist
      *
-     * @return void
+     * @return string
      */
-    public function get($key, $default = null)
+    public function get($key, $default = null): string
     {
         $valueEncrypt =  DB::table($this->table)->where('key', $key)->get()->first();
         if (is_null($valueEncrypt))
@@ -124,7 +124,7 @@ class DBConfig
      *
      * @return bool
      */
-    public function exists($key)
+    public function exists($key): bool
     {
         if (!is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
             return true;
@@ -140,10 +140,9 @@ class DBConfig
      *
      * @return bool
      */
-    public function destroy($key)
+    public function destroy($key): bool
     {
-        if($this->exists($key))
-        {
+        if ($this->exists($key)) {
             DB::table($this->table)->where('key', $key)->delete();
             return true;
         }
@@ -156,23 +155,28 @@ class DBConfig
      *
      * @return array
      */
-    public function all()
+    public function all(): array
     {
-        $allConfigs = DB::table($this->table)->get(['key','value']);
+        $allConfigs = DB::table($this->table)->get(['key', 'value']);
         $decryptConfigs = [];
         foreach ($allConfigs as $data) {
-           $decryptConfigs[$data->key] = $this->get($data->key);
+            $decryptConfigs[$data->key] = $this->get($data->key);
         }
         return $decryptConfigs;
     }
 
-     /**
+    /**
      * Destroy all Setting
      *
-     * @return array
+     * @return bool
      */
-    public function destroyAll()
+    public function destroyAll(): bool
     {
-        return DB::table($this->table)->delete();
+        try {
+            DB::table($this->table)->delete();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
