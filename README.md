@@ -11,7 +11,7 @@ composer require mlk9/setting-laravel
 ```
 - vendor publish
 ```sh
-php artisan vendor:publish --tag=setting
+php artisan vendor:publish --tag=setting-laravel
 ```
 - migrate table
 ```sh
