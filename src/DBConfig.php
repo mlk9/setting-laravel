@@ -1,8 +1,8 @@
 <?php
 
 /**
- * DBConfig File 
- * 
+ * DBConfig File
+ *
  * @category Configure
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
 /**
- * DBConfig Class 
- * 
+ * DBConfig Class
+ *
  * @category Configure
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>
@@ -42,7 +42,7 @@ class DBConfig
      *
      * @param string $key   Key name
      * @param mixed  $value Value of key
-     * 
+     *
      * @return void
      */
     private function _setNone($key, $value)
@@ -59,7 +59,7 @@ class DBConfig
      * Set configure
      *
      * @param array $configs Group set config
-     * 
+     *
      * @return void
      */
     private function _setArray($configs)
@@ -79,7 +79,7 @@ class DBConfig
      *
      * @param string $method    Method Name
      * @param mixed  $arguments Arguments of the method
-     * 
+     *
      * @return void
      */
     public function __Call($method, $arguments)
@@ -100,7 +100,7 @@ class DBConfig
      *
      * @param string $key     Key name
      * @param mixed  $default Default value not exist
-     * 
+     *
      * @return void
      */
     public function get($key, $default = null)
@@ -121,7 +121,7 @@ class DBConfig
      * Key exist
      *
      * @param string $key Check exist
-     * 
+     *
      * @return bool
      */
     public function exists($key)
@@ -137,7 +137,7 @@ class DBConfig
      * Key destroy
      *
      * @param string $key destroy!
-     * 
+     *
      * @return bool
      */
     public function destroy($key)
@@ -153,17 +153,22 @@ class DBConfig
 
     /**
      * Get all Setting
-     * 
+     *
      * @return array
      */
     public function all()
     {
-        return DB::table($this->table)->all();
+        $allConfigs = DB::table($this->table)->get(['key','value']);
+        $decryptConfigs = [];
+        foreach ($allConfigs as $data) {
+           $decryptConfigs[$data->key] = $this->get($data->key);
+        }
+        return $decryptConfigs;
     }
 
      /**
      * Destroy all Setting
-     * 
+     *
      * @return array
      */
     public function destroyAll()
