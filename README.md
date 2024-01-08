@@ -48,6 +48,10 @@ get  all data
 ```sh
 Setting::all(); 
 ```
+refresh salts
+```sh
+Setting::refreshSalts();
+```
 ### config using
 `app\Providers\AppServiceProvider.php`
 ```sh

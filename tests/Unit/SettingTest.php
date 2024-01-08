@@ -26,6 +26,24 @@ class SettingTest extends TestCase
 		$this->assertEquals(Setting::get('key2'),false);
 	}
 
+	public function testDestroyData()
+	{
+		Setting::set(['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
+		Setting::destroy('key1');
+		$this->assertEquals(Setting::all(),['key2' => 'value2','key3' => 'value3']);
+		Setting::destroyAll();
+		$this->assertEquals(Setting::all(),[]);
+	}
+
+	public function testRefreshData()
+	{
+		Setting::set(['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
+		Setting::refreshSalts();
+		$this->assertEquals(Setting::get('key1'),'value1');
+		$this->assertEquals(Setting::get('key2'),'value2');
+		$this->assertEquals(Setting::get('key3'),'value3');
+		$this->assertEquals(Setting::all(),['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
+	}
 
 	
 }
