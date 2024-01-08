@@ -1,7 +1,6 @@
 {
     "name": "mlk9/setting-laravel",
     "description": "Setting (encryption) for Laravel",
-    "type": "project",
     "license": "MIT",
     "authors": [
         {
@@ -16,12 +15,22 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Mlk9\\Setting\\Tests\\": "tests"
+            "Mlk9\\SettingPackage\\Tests\\": "tests"
         }
     },
     "require": {
-        "php": ">=7.1.3",
-        "illuminate/support": "~6|~7|~8|~9|~10"
+        "php": ">=7.4",
+        "illuminate/support": "~6|~7|~8|~9|~10",
+        "ext-gd": "*",
+        "ext-mbstring": "*",
+        "intervention/image": "^3.1"
+    },
+    "require-dev" : {
+        "laravel/pint": "^1.13.6",
+        "phpstan/phpstan": "^1.10.47",
+        "symfony/var-dumper": "^6.4.0|^7.0.1",
+        "phpunit/phpunit": "^10.5",
+        "orchestra/testbench": "^8.18"
     },
     "extra": {
         "laravel": {
@@ -32,8 +41,5 @@
                 "Setting": "Mlk9\\Setting\\Facades\\Setting"
             }
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
     }
 }

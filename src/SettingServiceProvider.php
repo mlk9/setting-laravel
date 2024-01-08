@@ -13,6 +13,7 @@
 namespace Mlk9\Setting;
 
 use Illuminate\Support\ServiceProvider;
+use Mlk9\Setting\Facades\Setting as FacadesSetting;
 use Mlk9\Setting\Setting;
 
 /**
@@ -33,9 +34,8 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function register() : void
     {
-        $this->app->singleton('setting', function ($app) {
-            return new Setting();
-        });
+        $this->mergeConfigFrom(__DIR__.'/../config/ensetting.php', 'ensetting');
+        $this->app->singleton(FacadesSetting::class, Setting::class);
     }
 
     /**
@@ -70,6 +70,7 @@ class SettingServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
+            __DIR__.'/../config/ensetting.php' => config_path('ensetting.php'),
             __DIR__ . '/../database/migrations/2021_09_12_000000_create_setting_table.php' => database_path('migrations/2021_09_12_000000_create_setting_table.php'),
         ], 'setting-laravel');
     }

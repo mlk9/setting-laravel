@@ -9,8 +9,20 @@ class SettingTest extends TestCase
 	
 	public function testCanSetData()
 	{
-		$this->assertEquals(Setting::class, Setting::set(['key1' => 'dwdwd']));
+		Setting::set(['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
+		$this->assertEquals(Setting::get('key1'),'value1');
+		$this->assertEquals(Setting::get('key2'),'value2');
+		$this->assertEquals(Setting::get('key3'),'value3');
+		$this->assertEquals(Setting::all(),['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
 	}
+
+	public function testCanSetTrueOrFalseData()
+	{
+		Setting::set(['key1' => true,'key2' => false]);
+		$this->assertEquals(Setting::get('key1'),true);
+		$this->assertEquals(Setting::get('key2'),false);
+	}
+
 
 	
 }

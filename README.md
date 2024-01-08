@@ -4,6 +4,7 @@ Encryption docs https://laravel.com/docs/encryption
 
 ## Requirement
 - Laravel 6+
+- PHP +8.0
 ## Installation
 - via composer
 ```sh

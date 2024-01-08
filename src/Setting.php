@@ -34,8 +34,9 @@ class Setting
      */
     public function __construct()
     {
-        $this->table = 'setting';
+        $this->table = config('ensetting.table','setting');
     }
+
 
     /**
      * Set Setting
@@ -45,13 +46,17 @@ class Setting
      *
      * @return void
      */
-    private function _setNone($key, $value): void
+    private function _setSingle($key, $value): void
     {
-        $valueEncrypt =  Crypt::encryptString($value);
+        $salts = config('ensetting.salts',['salt']);
+        $value = $value === true ? "**TRUE**SL" : $value;
+        $value = $value === false ? "**FALSE**SL" : $value;
+        $salt = sha1($salts[rand(0,count($salts)-1)]);
+        $valueEncrypt = Crypt::encryptString($value);
         if (is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
-            DB::table($this->table)->insert(['key' => $key, 'value' => $valueEncrypt]);
+            DB::table($this->table)->insert(['key' => $key, 'value' => $salt.$valueEncrypt]);
         } else {
-            DB::table($this->table)->where('key', $key)->update(['value' => $valueEncrypt]);
+            DB::table($this->table)->where('key', $key)->update(['value' => $salt.$valueEncrypt]);
         }
     }
 
@@ -65,12 +70,7 @@ class Setting
     private function _setArray($Setting): void
     {
         foreach ($Setting as $key => $value) {
-            $valueEncrypt =  Crypt::encryptString($value);
-            if (is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
-                DB::table($this->table)->insert(['key' => $key, 'value' => $valueEncrypt]);
-            } else {
-                DB::table($this->table)->where('key', $key)->update(['value' => $valueEncrypt]);
-            }
+            $this->_setSingle($key, $value);
         }
     }
 
@@ -86,14 +86,13 @@ class Setting
     {
         if ($method == 'set') {
             if (count($arguments) == 2) {
-                return call_user_func_array(array($this, '_setNone'), $arguments);
+                return call_user_func_array(array($this, '_setSingle'), $arguments);
             }
             if (count($arguments) == 1) {
                 return call_user_func_array(array($this, '_setArray'), $arguments);
             }
         }
     }
-
 
     /**
      * Get Setting
@@ -105,11 +104,21 @@ class Setting
      */
     public function get($key, $default = null): string
     {
+        $salts = config('ensetting.salts',['salt']);
         $valueEncrypt =  DB::table($this->table)->where('key', $key)->get()->first();
         if (is_null($valueEncrypt))
             return $default;
         try {
-            $valueDecrypted = Crypt::decryptString($valueEncrypt->value);
+            foreach($salts as $salt)
+            {
+                $salt = sha1($salt);
+                if(strpos($valueEncrypt->value,$salt) >= 0)
+                {
+                    $valueDecrypted = Crypt::decryptString(substr($valueEncrypt->value,0,strlen($salt)));
+                }
+            }
+            $valueDecrypted = $valueDecrypted === "**TRUE**SL" ? true : $valueDecrypted;
+            $valueDecrypted = $valueDecrypted === "**FALSE**SL" ? false : $valueDecrypted;
             return $valueDecrypted;
         } catch (DecryptException $e) {
             return $default;
@@ -122,7 +131,7 @@ class Setting
      *
      * @param string $key Check exist
      *
-     * @return bool
+     * @return boolean
      */
     public function exists($key): bool
     {
@@ -138,7 +147,7 @@ class Setting
      *
      * @param string $key destroy!
      *
-     * @return bool
+     * @return boolean
      */
     public function destroy($key): bool
     {
@@ -178,5 +187,16 @@ class Setting
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Rechange All Salts 
+     *
+     * @return void
+     */
+    public function refreshSalts(): void
+    {
+        $all = $this->all();
+        $this->set($all);
     }
 }
