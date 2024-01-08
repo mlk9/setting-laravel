@@ -2,11 +2,13 @@
 
 namespace Mlk9\SettingPackage\Tests\Unit;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mlk9\Setting\Facades\Setting;
 use Mlk9\SettingPackage\Tests\TestCase;
 
 class SettingTest extends TestCase
 {
+	use RefreshDatabase;
 	
 	public function testCanSetData()
 	{
