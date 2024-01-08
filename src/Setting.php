@@ -106,7 +106,7 @@ class Setting
                 $salt = sha1($salt);
                 if(strpos($valueEncrypt->value,$salt) >= 0)
                 {
-                    $valueDecrypted = Crypt::decryptString(substr($valueEncrypt->value,0,strlen($salt)));
+                    $valueDecrypted = Crypt::decryptString(substr($valueEncrypt->value,strlen($salt)));
                 }
             }
             $valueDecrypted = $valueDecrypted === "**TRUE**SL" ? true : $valueDecrypted;

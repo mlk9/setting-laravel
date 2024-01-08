@@ -34,7 +34,7 @@ class CreateSettingTable extends Migration
     {
         Schema::create('setting', function (Blueprint $table) {
             $table->id();
-            $table->longText('key')->unique();
+            $table->string('key')->unique();
             $table->longText('value')->nullable();
         });
     }
