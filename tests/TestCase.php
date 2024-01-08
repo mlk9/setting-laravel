@@ -1,6 +1,6 @@
 <?php
 
-namespace Mlk9\Setting\Tests;
+namespace Mlk9\SettingPackage\Tests;
 
 use Mlk9\Setting\SettingServiceProvider;
 
