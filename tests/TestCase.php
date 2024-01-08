@@ -31,6 +31,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
         'database' => ':memory:',
         'prefix'   => '',
     ]);
+
+    // import the CreatePostsTable class from the migration
+  include_once __DIR__ . '/../database/migrations/create_setting_table.php.stub';
+
+  // run the up() method of that migration class
+  (new \CreateSettingTable)->up();
   }
 
   
