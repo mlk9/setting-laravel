@@ -5,11 +5,10 @@ namespace Mlk9\SettingPackage\Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mlk9\Setting\Facades\Setting;
 use Mlk9\SettingPackage\Tests\TestCase;
-use Orchestra\Testbench\Concerns\CreatesApplication;
 
 class SettingTest extends TestCase
 {
-	use CreatesApplication,RefreshDatabase;
+	use RefreshDatabase;
 	
 	public function testCanSetData()
 	{
