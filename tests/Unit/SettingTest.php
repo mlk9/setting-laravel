@@ -1,6 +1,6 @@
 <?php
 
-namespace Mlk9\SettingPackage\Tests;
+namespace Mlk9\SettingPackage\Tests\Unit;
 
 use Mlk9\Setting\Facades\Setting;
 use PHPUnit\Framework\TestCase;
