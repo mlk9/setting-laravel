@@ -94,10 +94,13 @@ class Setting
      *
      * @return string
      */
-    public function get($key, $default = null): string
+    public function get($key, $default = null, $salts = []): string
     {
         $table = config('ensetting.table','setting');
-        $salts = config('ensetting.salts',['salt']);
+        if(count($salts) == 0)
+        {
+            $salts = config('ensetting.salts',['salt']);
+        }
         $valueEncrypt =  DB::table($table)->where('key', $key)->get()->first();
         if (is_null($valueEncrypt))
             return $default;
@@ -197,6 +200,22 @@ class Setting
     public function refreshSalts(): void
     {
         $this->set($this->all());
+    }
+
+    /**
+     * change value old salt to new configure
+     * @param array $oldSalts 
+     * @return void
+     */
+    public function changeOldSalts(array $oldSalts): void
+    {
+        $table = config('ensetting.table','setting');
+        $allSetting = DB::table($table)->get(['key', 'value']);
+        $decryptSetting = [];
+        foreach ($allSetting as $data) {
+            $decryptSetting[$data->key] = $this->get($data->key,null,$oldSalts);
+        }
+        $this->set($decryptSetting);
     }
 
     /**

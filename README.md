@@ -30,7 +30,7 @@ Setting::set([
 ```
 get data
 ```sh
-Setting::get('KEY_NAME','DEFAULT_VALUE'); 
+Setting::get('KEY_NAME','DEFAULT_VALUE',$salts = []); 
 ```
 key exist
 ```sh
@@ -52,7 +52,10 @@ refresh salts
 ```sh
 Setting::refreshSalts();
 ```
-
+when you need change salts, you can use this method for replace old salts to new configure package
+```sh
+changeOldSalts(array $oldSalts);
+```
 ### config using
 #### Method 1 (recommended)
 replace all config data with setting data
