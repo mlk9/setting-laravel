@@ -27,16 +27,6 @@ use Illuminate\Support\Facades\Crypt;
  */
 class Setting
 {
-    protected $table;
-
-    /**
-     * __construct function
-     */
-    public function __construct()
-    {
-        $this->table = config('ensetting.table','setting');
-    }
-
 
     /**
      * Set Setting
@@ -48,15 +38,16 @@ class Setting
      */
     private function _setSingle($key, $value): void
     {
+        $table = config('ensetting.table','setting');
         $salts = config('ensetting.salts',['salt']);
         $value = $value === true ? "**TRUE**SL" : $value;
         $value = $value === false ? "**FALSE**SL" : $value;
         $salt = sha1($salts[rand(0,count($salts)-1)]);
         $valueEncrypt = Crypt::encryptString($value);
-        if (is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
-            DB::table($this->table)->insert(['key' => $key, 'value' => $salt.$valueEncrypt]);
+        if (is_null(DB::table($table)->where('key', $key)->get()->first())) {
+            DB::table($table)->insert(['key' => $key, 'value' => $salt.$valueEncrypt]);
         } else {
-            DB::table($this->table)->where('key', $key)->update(['value' => $salt.$valueEncrypt]);
+            DB::table($table)->where('key', $key)->update(['value' => $salt.$valueEncrypt]);
         }
     }
 
@@ -104,8 +95,9 @@ class Setting
      */
     public function get($key, $default = null): string
     {
+        $table = config('ensetting.table','setting');
         $salts = config('ensetting.salts',['salt']);
-        $valueEncrypt =  DB::table($this->table)->where('key', $key)->get()->first();
+        $valueEncrypt =  DB::table($table)->where('key', $key)->get()->first();
         if (is_null($valueEncrypt))
             return $default;
         try {
@@ -135,7 +127,8 @@ class Setting
      */
     public function exists($key): bool
     {
-        if (!is_null(DB::table($this->table)->where('key', $key)->get()->first())) {
+        $table = config('ensetting.table','setting');
+        if (!is_null(DB::table($table)->where('key', $key)->get()->first())) {
             return true;
         }
 
@@ -151,8 +144,10 @@ class Setting
      */
     public function destroy($key): bool
     {
+        $table = config('ensetting.table','setting');
+
         if ($this->exists($key)) {
-            DB::table($this->table)->where('key', $key)->delete();
+            DB::table($table)->where('key', $key)->delete();
             return true;
         }
 
@@ -166,7 +161,9 @@ class Setting
      */
     public function all(): array
     {
-        $allSetting = DB::table($this->table)->get(['key', 'value']);
+        $table = config('ensetting.table','setting');
+
+        $allSetting = DB::table($table)->get(['key', 'value']);
         $decryptSetting = [];
         foreach ($allSetting as $data) {
             $decryptSetting[$data->key] = $this->get($data->key);
@@ -181,8 +178,10 @@ class Setting
      */
     public function destroyAll(): bool
     {
+        $table = config('ensetting.table','setting');
+
         try {
-            DB::table($this->table)->delete();
+            DB::table($table)->delete();
             return true;
         } catch (\Exception $e) {
             return false;
