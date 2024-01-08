@@ -3,8 +3,7 @@
 namespace Mlk9\SettingPackage\Tests\Unit;
 
 use Mlk9\Setting\Facades\Setting;
-use PHPUnit\Framework\TestCase;
-
+use Mlk9\SettingPackage\Tests\TestCase;
 
 class SettingTest extends TestCase
 {
