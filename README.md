@@ -1,7 +1,7 @@
 # Setting Laravel
-Setting (encryption) for Laravel <br>
-Encryption docs https://laravel.com/docs/encryption
-
+Setting (encryption) for Laravel saving database<br>
+Encryption docs https://laravel.com/docs/encryption<br>
+Hash Salts Method
 ## Requirement
 - Laravel 6+
 - PHP +8.2
