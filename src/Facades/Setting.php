@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Facade;
  * @method   static bool destroy(string $key) Destroy A Key Mlk9\Setting 
  * @method   static bool destroyAll() Destroy All Keys Mlk9\Setting 
  * @method   static void refreshSalts() Rechange All Salts Mlk9\Setting 
+ * @method   static void replaceAllConfigs() Replace All Configs App Provider Mlk9\Setting 
+ * @method   static void replaceConfigs(array $configs = []) Replace Configs App Provider Mlk9\Setting 
  * @category Setting
  * @package  Laravel
  * @author   Mohammad Maleki <malekii24@outlook.com>

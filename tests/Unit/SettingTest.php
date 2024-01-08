@@ -45,5 +45,14 @@ class SettingTest extends TestCase
 		$this->assertEquals(Setting::all(),['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
 	}
 
+	public function testReplaceData()
+	{
+		Setting::set(['key1' => 'value1','key2' => 'value2','key3' => 'value3']);
+		Setting::replaceAllConfigs();
+		$this->assertEquals(config('key1',null),'value1');
+		Setting::replaceConfigs(['app.name' => 'key2']);
+		$this->assertEquals(config('app.name',null),'value2');
+	}
+
 	
 }

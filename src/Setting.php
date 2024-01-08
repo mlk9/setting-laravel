@@ -13,6 +13,7 @@
 namespace Mlk9\Setting;
 
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -195,7 +196,28 @@ class Setting
      */
     public function refreshSalts(): void
     {
-        $all = $this->all();
-        $this->set($all);
+        $this->set($this->all());
+    }
+
+    /**
+     * Replace All Configs App Provider
+     *
+     * @return void
+     */
+    public function replaceAllConfigs() : void {
+        foreach ($this->all() as $key => $value) {
+            Config::set($key,$value);
+        }
+    }
+
+    /**
+     * Replace Configs App Provider
+     *
+     * @return void
+     */
+    public function replaceConfigs(array $configs = []) : void {
+        foreach ($configs as $key => $value) {
+            Config::set($key,$this->all()[$value] ? $this->all()[$value] : null);
+        }
     }
 }
