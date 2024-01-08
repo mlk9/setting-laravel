@@ -54,7 +54,7 @@ Setting::refreshSalts();
 ```
 when you need change salts, you can use this method for replace old salts to new configure package
 ```sh
-changeOldSalts(array $oldSalts);
+Setting::changeOldSalts(array $oldSalts);
 ```
 ### config using
 #### Method 1 (recommended)
