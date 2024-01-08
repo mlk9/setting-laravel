@@ -57,6 +57,8 @@ Setting::refreshSalts();
 #### Method 1 (recommended)
 replace all config data with setting data
 ```sh
+//must be same key name
+Setting::set(['app.name' => 'Maleki']); 
 //uses at \app\Providers\AppServiceProvider.php in boot
 Setting::replaceAllConfigs();
 ```
