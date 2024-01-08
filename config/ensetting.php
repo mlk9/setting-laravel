@@ -2,9 +2,9 @@
 
 return [
 
-    $table => 'setting',
+    'table' => 'setting',
 
-    $salts => [
+    'salts' => [
         'god', 'doctor', 'girl', 'boy', 'iran'
     ],
 
