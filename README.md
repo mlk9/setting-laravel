@@ -4,7 +4,7 @@ Encryption docs https://laravel.com/docs/encryption
 
 ## Requirement
 - Laravel 6+
-- PHP +8.0
+- PHP +8.2
 ## Installation
 - via composer
 ```sh
@@ -52,7 +52,25 @@ refresh salts
 ```sh
 Setting::refreshSalts();
 ```
+
 ### config using
+#### Method 1 (recommended)
+replace all config data with setting data
+```sh
+//uses at \app\Providers\AppServiceProvider.php in boot
+Setting::replaceAllConfigs();
+```
+#### Method 2 (customize)
+replace custom config data with setting data
+```sh
+//in page save
+Setting::set(['seo.site.name' => 'Maleki']); 
+//uses at \app\Providers\AppServiceProvider.php in boot
+Setting::replaceConfigs(['app.name' => 'seo.site.name']);
+//for test
+config('app.name') // return : Maleki
+```
+#### Method 3 (not recommended)
 `app\Providers\AppServiceProvider.php`
 ```sh
 public function boot()
@@ -60,5 +78,3 @@ public function boot()
     Config::set('services.example.exam1',Setting::get('example.exam'));
    }
 ```
-## Todo
-- load automaticly configs
