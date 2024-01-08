@@ -19,11 +19,8 @@
         }
     },
     "require": {
-        "php": ">=7.4",
-        "illuminate/support": "~6|~7|~8|~9|~10",
-        "ext-gd": "*",
-        "ext-mbstring": "*",
-        "intervention/image": "^3.1"
+        "php": ">=8.2",
+        "illuminate/support": "~6|~7|~8|~9|~10"
     },
     "require-dev" : {
         "laravel/pint": "^1.13.6",
