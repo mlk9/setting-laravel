@@ -94,7 +94,7 @@ class Setting
      *
      * @return string
      */
-    public function get($key, $default = null, $salts = []): string
+    public function get($key, $default = null, $salts = []): mixed
     {
         $table = config('ensetting.table','setting');
         if(count($salts) == 0)
